@@ -1,4 +1,9 @@
-## Testdaten aufbereiten:
+## Reden ist Gold
+Ein Python Script mit welchem Speaker Diarization auf .wav Dateien ausgeführt werden kann. Die Scripts basieren auf dem Resemblyzer Algorithmus von https://github.com/resemble-ai/Resemblyzer, welche von uns für unser spezifisches Problem angepasst wurden.
+
+Wie können die Scripts genutzt werden? Folgend eine Step-by-Step Anleitung für einen einfachen Einstieg.
+
+## Testdaten aufbereiten und Tools installieren:
 
 Source: https://www.srf.ch/play/tv/arena/video/abstimmungs-arena-zur-konzernverantwortungsinitiative?urn=urn:srf:video:a1a54687-eae7-4579-9735-07a1a4227899 
 
@@ -30,7 +35,7 @@ Youtubedl.exe https://www.srf.ch/play/tv/arena/video/abstimmungs-arena-zur-konze
 
 Repository von Resemblyzer: https://github.com/resemble-ai/Resemblyzer 
 
-Resemblyzer braucht den Algorithmus von von: https://github.com/google/uis-rnn 
+Resemblyzer braucht den Algorithmus von: https://github.com/google/uis-rnn 
 
 Als Vorgabe wird Visual Studio 2019 mit vollständiger C++ Umgebung benötigt: https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16 
 
