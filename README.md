@@ -1,6 +1,9 @@
 ## Reden ist Gold
 Ein Python Script mit welchem Speaker Diarization auf .wav Dateien ausgeführt werden kann. Die Scripts basieren auf dem Resemblyzer Algorithmus von https://github.com/resemble-ai/Resemblyzer, welche von uns für unser spezifisches Problem angepasst wurden.
 
+**Demo:**
+![alt text](plots/demo.gif?raw=true)
+
 Wie können die Scripts genutzt werden? Folgend eine Step-by-Step Anleitung für einen einfachen Einstieg.
 
 ## Testdaten aufbereiten und Tools installieren:
