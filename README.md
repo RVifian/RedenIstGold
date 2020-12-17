@@ -1,63 +1,246 @@
-Resemblyzer allows you to derive a **high-level representation of a voice** through a deep learning model (referred to as the voice encoder). Given an audio file of speech, it creates a summary vector of 256 values (an embedding, often shortened to "embed" in this repo) that summarizes the characteristics of the voice spoken. 
+## Reden ist Gold
+Ein Python Script mit welchem Speaker Diarization auf .wav Dateien ausgeführt werden kann. Die Scripts basieren auf dem Resemblyzer Algorithmus von https://github.com/resemble-ai/Resemblyzer, welche von uns für unser spezifisches Problem angepasst wurden.
 
-N.B.: this repo holds 100mb of audio data for demonstration purpose. To get [the package](https://pypi.org/project/Resemblyzer/) alone, run `pip install resemblyzer` (python 3.5+ is required).
+Wie können die Scripts genutzt werden? Folgend eine Step-by-Step Anleitung für einen einfachen Einstieg.
 
-## Demos
-**Speaker diarization**: [\[Demo 02\]](https://github.com/resemble-ai/Resemblyzer/blob/master/demo02_diarization.py) recognize who is talking when with only a few seconds of reference audio per speaker:  
-*(click the image for a video)*
+## Testdaten aufbereiten und Tools installieren:
 
-[![demo_02](https://i.imgur.com/2MpNauG.png)](https://streamable.com/uef39)
+Source: https://www.srf.ch/play/tv/arena/video/abstimmungs-arena-zur-konzernverantwortungsinitiative?urn=urn:srf:video:a1a54687-eae7-4579-9735-07a1a4227899 
 
-**Fake speech detection**: [\[Demo 05\]](https://github.com/resemble-ai/Resemblyzer/blob/master/demo05_fake_speech_detection.py) modest detection of fake speech by comparing the similarity of 12 unknown utterances (6 real ones, 6 fakes) against ground truth reference audio. Scores above the dashed line are predicted as real, so the model makes one error here.
+Heruntergeladen und konvertiert mit youtube-dl https://youtube-dl.org/. 
 
-![demo_05](plots/fake_speech_detection.png?raw=true)
+Für die Konvertierung des Videos in eine Audiodatei wird ffmpeg benötigt. 
 
-For reference, [this](https://www.youtube.com/watch?v=Ho9h0ouemWQ) is the fake video that achieved a high score.
-
-**Visualizing the manifold**:  
-[\[Demo 03 - left\]](https://github.com/resemble-ai/Resemblyzer/blob/master/demo03_projection.py) projecting the embeddings of 100 utterances (10 each from 10 speakers) in 2D space. The utterances from the same speakers form a tight cluster. With a trivial clustering algorithm, the speaker verification error rate for this example (with data unseen in training) would be 0%.  
-[\[Demo 04 - right\]](https://github.com/resemble-ai/Resemblyzer/blob/master/demo04_clustering.py) same as demo 03 but with 251 embeddings all from distinct speakers, highlighting that the model has learned on its own to identify the sex of the speaker.
-
-![demo_03_04](plots/all_clustering.png?raw=true)
-
-**Cross-similarity**: [\[Demo 01\]](https://github.com/resemble-ai/Resemblyzer/blob/master/demo01_similarity.py) comparing 10 utterances from 10 speakers against 10 other utterances from the same speakers.
-
-![demo_01](plots/sim_matrix_1.png?raw=true)
-
-
-
-## What can I do with this package?
-Resemblyzer has many uses:
-- **Voice similarity metric**: compare different voices and get a value on how similar they sound. This leads to other applications:
-  - **Speaker verification**: create a voice profile for a person from a few seconds of speech (5s - 30s) and compare it to that of new audio. Reject similarity scores below a threshold.
-  - **Speaker diarization**: figure out who is talking when by comparing voice profiles with the continuous embedding of a multispeaker speech segment.
-  - **Fake speech detection**: verify if some speech is legitimate or fake by comparing the similarity of possible fake speech to real speech.
-- **High-level feature extraction**: you can use the embeddings generated as feature vectors for machine learning or data analysis. This also leads to other applications:
-  - **Voice cloning**: see [this other project](https://github.com/CorentinJ/Real-Time-Voice-Cloning).
-  - **Component analysis**: figure out accents, tones, prosody, gender, ... through a component analysis of the embeddings.
-  - **Virtual voices**: create entirely new voice embeddings by sampling from a prior distribution.
-- **Loss function**: you can backpropagate through the voice encoder model and use it as a perceptual loss for your deep learning model! The voice encoder is written in PyTorch.
-
-Resemblyzer is fast to execute (around 1000x real-time on a GTX 1080, with a minimum of 10ms for I/O operations), and can run both on CPU or GPU. It is robust to noise. It currently works best on English language only, but should still be able to perform somewhat decently on other languages.
-
-
-## Code example
-This is a short example showing how to use Resemblyzer:
-```python
-from resemblyzer import VoiceEncoder, preprocess_wav
-from pathlib import Path
-import numpy as np
-
-fpath = Path("path_to_an_audio_file")
-wav = preprocess_wav(fpath)
-
-encoder = VoiceEncoder()
-embed = encoder.embed_utterance(wav)
-np.set_printoptions(precision=3, suppress=True)
-print(embed)
+Installation von Chocolately (Windows Package Manager) für eine einfache spätere Installation von ffmpeg: 
+Powershell:
+```Powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = 
+[System.Net.ServicePointManager]::SecurityProtocol -bor 3072; 
+iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) 
 ```
 
-I highly suggest giving a peek to the demos to understand how similarity is computed and to see practical usages of the voice encoder.
+Poswershell: 
+```Powershell 
+choco install ffmpeg 
+Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) 
+```
 
-## Additional info
-Resemblyzer emerged as a side project of the [Real-Time Voice Cloning](https://github.com/CorentinJ/Real-Time-Voice-Cloning) repository. The pretrained model that comes with Resemblyzer is interchangeable with models trained in that repository, so feel free to finetune a model on new data and possibly new languages! The paper from which the voice encoder was implemented is [Generalized End-To-End Loss for Speaker Verification](https://arxiv.org/pdf/1710.10467.pdf) (in which it is called the *speaker* encoder).
+In cmd: 
+```
+Youtubedl.exe https://www.srf.ch/play/tv/arena/video/abstimmungs-arena-zur-konzernverantwortungsinitiative?urn=urn:srf:video:a1a54687-eae7-4579-9735-07a1a4227899 
+-x --audio-format wav 
+```
+ 
+## Dependecies installieren:
+
+Repository von Resemblyzer: https://github.com/resemble-ai/Resemblyzer 
+
+Resemblyzer braucht den Algorithmus von: https://github.com/google/uis-rnn 
+
+Als Vorgabe wird Visual Studio 2019 mit vollständiger C++ Umgebung benötigt: https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16 
+
+ 
+![alt text](plots/C++_Dependency.PNG?raw=true)
+ 
+
+Als Haupt IDE haben wurde jedoch Visual Studio Code verwendet: https://code.visualstudio.com/docs/?dv=win  
+
+Installation von Python 3.8 (3.9 ist noch nicht für alle dependecies unterstützt): https://www.python.org/downloads/release/python-386/  
+
+Clonen unseres Resemblyzer Repositories: 
+
+Visual Studio Code: git clone https://github.com/NosGigu/RedenIstGold
+
+ 
+
+**Installieren einiger weitere Python Pakages:** 
+
+Pytorch: 
+```Python
+pip install torch===1.7.0 torchvision===0.8.1 torchaudio===0.7.0 -f https://download.pytorch.org/whl/torch_stable.html 
+```
+Und die anderen requirements des repos: 
+```Python
+pip install -r .\requirements_demos.txt 
+pip install -r .\requirements_package.txt 
+```
+ 
+
+## Versuch mit der erstellten wav Datei der Arena Aufzeichnung: 
+
+Da die komplette Länge unsere Kapazität von Rechenleistung deutlich überschreitet, haben wir eine 15 min Version und eine 1 min Version erstellt.
+Error bei voller länge:
+```
+RuntimeError: [enforce fail at ..\c10\core\CPUAllocator.cpp:73] data. DefaultCPUAllocator: not enough memory: you tried to allocate 45909278720 bytes. Buy new RAM! 
+```
+
+Die Audiodatei haben wir mit Hilfe von https://mp3cut.net/ gekürzt auf 15 und auf 1 min gekürzt.
+
+Die 15 min Version kann nicht direkt auf Github gespeichert werden aber kann von hier heruntergeladen werden: https://zhaw-my.sharepoint.com/:u:/g/personal/vifiarob_students_zhaw_ch/ERTnmpq_daZCqeFg9BhK5KcB8BAnm4q5osEHQwZu-2jLng?e=9e0wze
+
+
+
+
+## Code Erweiterung durch uns
+
+Im folgenden Abschnitt werden alle Änderungen und Erweiterungen des originalen Codes beschrieben.
+Der Originale Code kann dabei unter https://github.com/resemble-ai/Resemblyzer abgerufen werden.
+
+
+## Arena_1min.py
+
+In dieser Variable wav_fpath wird das Audiofile angegeben:
+```Python
+wav_fpath = Path(
+    "audio_data", "Abstimmungs-Arena» zur Konzernverantwortungsinitiative-a1a54687-eae7-4579-9735-07a1a4227899_1min.wav")
+wav = preprocess_wav(wav_fpath)
+```
+
+Danach werden die Segmente der Speaker definiert  die der Algorithmus zum trainieren des RNN benötigt.
+Ausserdem werden hier auch die Labels der Speaker definiert.
+Die Segmente bilden dabei die Abschnitte in Sekunden innerhalb der Audiodatei, wo die entsprechende Person bestenfalls alleine am sprechen ist.
+```Python
+segments = [[00, 11], [14, 30]]
+speaker_names = ["Sandro Botz, Moderator", "Karin Keller-Sutter, Bundesrätin"]
+speaker_wavs = [
+    wav[int(s[0] * sampling_rate):int(s[1] * sampling_rate)] for s in segments]
+```
+
+## Arena_15min.py
+
+Hier parellel zu oben, nur mit der 15 minütigen AudioSource und mehreren Sprechern.
+
+```Python
+wav_fpath = Path(
+    "audio_data", "Abstimmungs-Arena» zur Konzernverantwortungsinitiative-a1a54687-eae7-4579-9735-07a1a4227899_15min.wav")
+wav = preprocess_wav(wav_fpath)
+```
+
+```Python
+segments = [[113, 140], [34, 50], [190, 230], [873, 910], [764, 800], [672, 720]] 
+speaker_names = ["Sandro Botz Moderator", "Backgroundinfo Sprecherin", "Karin Keller-Sutter, Bundesrätin", "Martin Landolt, Präsident BDP", "Gerhard Pfister, Präsident CVP", "Daniel Jositsch, Ständerat SP"] 
+speaker_wavs = [wav[int(s[0] * sampling_rate):int(s[1] * sampling_rate)] for s in segments] 
+```
+
+
+## demo_utils_1min.py
+
+Abgesehen von cm brauchen wir auch colors von matplotlib.
+```Python
+from matplotlib import cm, colors
+```
+
+
+Ausserdem benötigen wir auch die datetime library.
+```Python
+import datetime
+```
+
+Dann brauchen wir noch einige zusätzliche Variablen.
+Karintime und sandrotime wird benötigt um die Sprechdauer hochzuzählen.
+Die Speaker Diarization läuft mit 16 Frames, also alle 0.0625 wird ein Frame erzeugt. 
+Die Variable timeFrameMultiplier benötigen wir, um später von der Anzahl Frames auf Sekunden zu gelangen.
+```Python
+# speakers
+karinTime = 0
+sandroTime = 0
+
+# needed to multiply frames by time
+timeFrameMultiplier = 0.0625
+```
+
+Die "interactive_diarization" Funktion haben wir so erweitert, dass uns auf der x-Achse die Sekunden angezeigt werden, damit ersichtlich ist wo die Berechnung gerade steht.
+Da die Animation auf unserer Hardware teilweise verzögert läuft, hilft uns dies bei der Analyse.
+Ausserdem wird die matplotlib Definition so angepasst, dass neu eine zweite "row" ausgegeben wird.
+Original:
+```Python
+def interactive_diarization(similarity_dict, wav, wav_splits, x_crop=5, show_time=False):
+    fig, ax = plt.subplots()
+```
+Modifikation:
+```Python
+def interactive_diarization(similarity_dict, wav, wav_splits, x_crop=5, show_time=True):    
+    fig, (ax, pie) = plt.subplots(1, 2)
+```
+
+Danach haben wir noch einen Haupttitel über die beiden neuen Graphen erstellt und den Titel der eigentlichen Speaker Diarization noch genauer definiert:
+```Python
+fig.suptitle("Diarization by Patrik, Dejan & Robin", fontsize=14, fontweight='bold')
+ax.set_title("Speaker Diarization")
+```
+
+In der Unterfunktion "update" haben wir die zu Anfangs erstellten Variablen mittels "global" für uns verfügbar gemacht und die Labels und Werte für das Pie chart definiert.
+```Python
+global sandroTime
+global karinTime
+labels = 'Sandro Botz, Moderator', 'Karin Keller-Sutter, Bundesrätin'
+nums = [sandroTime, karinTime]
+```
+
+Das Pie chart selber ist hier definiert.
+Mit "pie" wird der neue Subplot eröffnet, welcher oben in der "interactive_diarization" Funktion definiert wurde.
+"pie.clear()" wird benötigt damit in jedem Frame die Werte des pie chart gelöscht und anschliessend neu geladen werden können.
+Das muss so gemacht werden, da matplotlib von sich aus keine update funktion für das pie chart zur Verfügung stellt, wir unser pie chart aber in real time auffüllen wollen.
+"pie.pie" definiert das eigentliche Kuchendiagramm mit "nums" als die oben definierten Werte, "autopct" damit wir Prozentzahlen erhalten, "shadow" für Schatten und "startangle" für den Startwinkel.
+"pie.set_title" definiert den Titel des charts.
+"pie.legend" definiert die Legende an den x und y Koordinaten (0.5, 0.95), "loc" die location, "borderaxespad" den pad zwischen den Achsen und den Border der Legende und mit labels werden die oben definierten labels definiert.
+Die 3 "pie.text" Befehle ertstellen uns die Textboxen, wo die Gesamtzeit der Sprecher aufaddiert und real time angezeigt wird.
+Die erste definiert dabei lediglich den Titel.
+Die anderen beiden sind gleich aufgebaut.
+Zuersten werden alle Frames in denen der definierte Sprecher gesprochen hat mit dem timeFrameMultiplier 0.0625 addiert um Sekunden zu erhalten.
+Diese werden als Sekunden der datetime.timedelta übergeben welche den Wert nach der Zeitdarstellung 00:00:00.000000 formatiert.
+Mit "[:-4]" werden die letzen 4 Stellen der Milisekunden abgeschnitten damit wir auf eine Dartstellung von 00:00:00.00 kommen welche für uns vollkommen ausreicht und ansprechender aussieht.
+Das ganze wird hübsch verpackt in einer roten Textbox im Beispiel von "Sandro Botz: 00:00:00.00 Sekunden" ausgegeben.
+
+```Python
+pie
+pie.clear()
+pie.axis('equal')
+pie.pie(nums, autopct='%1.1f%%', shadow=True, startangle=140)
+pie.set_title("Sprechverteilung")
+# Place a legend to the right of this smaller subplot.
+pie.legend(bbox_to_anchor=(0.5, 0.95), loc='upper left', borderaxespad=0., labels=labels)
+pie.text(-1, -1.3, 'Total Talk Time:', fontsize=15)
+pie.text(-1, -1.5, 'Sandro Botz: ' + str(datetime.timedelta(seconds=(sandroTime * timeFrameMultiplier)))[:-4] + " Sekunden", style='italic', bbox={'facecolor': 'red', 'alpha': 0.5, 'pad': 10})
+pie.text(-1, -1.7, 'Karin Keller-Sutter: ' + str(datetime.timedelta(seconds=(karinTime * timeFrameMultiplier)))[:-4] + " Sekunden", style='italic', bbox={'facecolor': 'red', 'alpha': 0.5, 'pad': 10})
+```
+
+
+Damit die beiden Variablen sandroTime und karinTime auf die korrekte Anzahl Frames kommen in denen sie gesprochen haben, haben wir die beiden bestehenden if-Anweisungen erweitert.
+Bestehende if Schleifen:
+```Python
+if similarity > 0.75:
+    message = "Speaker: %s (confident)" % name
+    color = _default_colors[best]
+```
+und
+```Python
+elif similarity > 0.65:
+    message = "Speaker: %s (uncertain)" % name
+    color = _default_colors[best]
+```
+Wenn der Algorithmus eine similarität von mehr als 75 % oder bei einer definierten Unsicherheit von immer noch über 65% hat, wird auch unser Codeteil ausgeführt 
+Wenn die "name" im aktuellen Frame "Sandro Botz, Moderator" enthält, wird die Variable "sandroTime" um eins erhöht und bei "Karin Keller-Sutter, Bundesrätin" "karinTime" entsprechend um 1. Die print Befehle sind lediglich für uns um den Prozess besser kontrollieren zu können.
+
+```Python
+if name == "Sandro Botz, Moderator":
+    sandroTime += 1
+    print(sandroTime)
+if name == "Karin Keller-Sutter, Bundesrätin":
+    karinTime += 1
+    print(karinTime)
+print(name) # print the name of the speaker every update
+```
+
+Ganz am Ende wird auch für uns nochmals das Total der gesprochenen Zeit geprintet, damit wir auch in der Konsole nachvollziehen können, dass alles richtig berechnet wurde:
+
+```Python
+    # print total amount of talked seconds each candidate
+    global karinTime
+    global sandroTime
+    print(karinTime * timeFrameMultiplier)
+    print(sandroTime * timeFrameMultiplier)
+```
+
+
+
