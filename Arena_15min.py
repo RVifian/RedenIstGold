@@ -10,15 +10,14 @@ from pathlib import Path
 
 # 1 min Verison:
 wav_fpath = Path(
-    "audio_data", "Abstimmungs-Arena» zur Konzernverantwortungsinitiative-a1a54687-eae7-4579-9735-07a1a4227899_1min.wav")
+    "audio_data", "Abstimmungs-Arena» zur Konzernverantwortungsinitiative-a1a54687-eae7-4579-9735-07a1a4227899_15min.wav")
 wav = preprocess_wav(wav_fpath)
 
 # Cut some segments from single speakers as reference audio
-# 1 min Version:
-segments = [[00, 11], [14, 30]]
-speaker_names = ["Sandro Botz, Moderator", "Karin Keller-Sutter, Bundesrätin"]
-speaker_wavs = [
-    wav[int(s[0] * sampling_rate):int(s[1] * sampling_rate)] for s in segments]
+# 15 min Version:
+segments = [[113, 140], [34, 50], [190, 230], [873, 880], [764, 800], [672, 720]]
+speaker_names = ["Sandro Botz Moderator", "Backgroundinfo Sprecherin", "Karin Keller-Sutter, Bundesrätin", "Martin Landolt, Präsident BDP", "Gerhard Pfister, Präsident CVP", "Daniel Jositsch, Ständerat SP"]
+speaker_wavs = [wav[int(s[0] * sampling_rate):int(s[1] * sampling_rate)] for s in segments]
 
 
 # Compare speaker embeds to the continuous embedding of the interview
