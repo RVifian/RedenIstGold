@@ -3,7 +3,7 @@ Ein Python Script mit welchem Speaker Diarization auf .wav Dateien ausgeführt w
 
 **Demo:**
 
-![alt text](plots/demo.gif?raw=true) 
+![alt text](plots/demo2.gif?raw=true) 
 
 Wie können die Scripts genutzt werden? Folgend eine Step-by-Step Anleitung für einen einfachen Einstieg.
 
