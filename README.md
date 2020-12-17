@@ -52,7 +52,7 @@ Visual Studio Code: git clone https://github.com/NosGigu/RedenIstGold
 
  
 
-**Installieren einiger weitere Python Pakages:** 
+**Installieren einiger weiterer Python Packages:** 
 
 Pytorch: 
 ```Python
