@@ -68,7 +68,7 @@ pip install -r .\requirements_package.txt
 
 ## Versuch mit der erstellten wav Datei der Arena Aufzeichnung: 
 
-Da die komplette Länge unsere Kapazität von Rechenleistung deutlich überschreitet haben wir eine 15 min Version und eine 1 min Version erstellt.
+Da die komplette Länge unsere Kapazität von Rechenleistung deutlich überschreitet, haben wir eine 15 min Version und eine 1 min Version erstellt.
 Error bei voller länge:
 ```
 RuntimeError: [enforce fail at ..\c10\core\CPUAllocator.cpp:73] data. DefaultCPUAllocator: not enough memory: you tried to allocate 45909278720 bytes. Buy new RAM! 
@@ -83,7 +83,7 @@ Die 15 min Version kann nicht direkt auf Github gespeichert werden aber kann von
 
 ## Code Erweiterung durch uns
 
-Im folgenden Abschnitt werden alle Änderungen und Erweiterungen des originalen Codes beschreiben.
+Im folgenden Abschnitt werden alle Änderungen und Erweiterungen des originalen Codes beschrieben.
 Der Originale Code kann dabei unter https://github.com/resemble-ai/Resemblyzer abgerufen werden.
 
 
@@ -98,7 +98,7 @@ wav = preprocess_wav(wav_fpath)
 
 Danach werden die Segmente der Speaker definiert  die der Algorithmus zum trainieren des RNN benötigt.
 Ausserdem werden hier auch die Labels der Speaker definiert.
-Die Segmente bilden dabei die Abschnitte in Sekunden innerhalb der Audiodatei wo die entsprechende Person bestensfalls alleine am sprechen ist.
+Die Segmente bilden dabei die Abschnitte in Sekunden innerhalb der Audiodatei, wo die entsprechende Person bestenfalls alleine am sprechen ist.
 ```Python
 segments = [[00, 11], [14, 30]]
 speaker_names = ["Sandro Botz, Moderator", "Karin Keller-Sutter, Bundesrätin"]
@@ -138,8 +138,8 @@ import datetime
 
 Dann brauchen wir noch einige zusätzliche Variablen.
 Karintime und sandrotime wird benötigt um die Sprechdauer hochzuzählen.
-Die Speaker Diarization läuft mit 16 Frames, also alle 0.0625 wird ein Frame erzeigt. 
-Die Variable timeFrameMultiplier benötigen wir damit wir später einfach darauf zugreifen können um von der Anzahl Frames auf Sekunden zu gelangen.
+Die Speaker Diarization läuft mit 16 Frames, also alle 0.0625 wird ein Frame erzeugt. 
+Die Variable timeFrameMultiplier benötigen wir, um später von der Anzahl Frames auf Sekunden zu gelangen.
 ```Python
 # speakers
 karinTime = 0
@@ -149,8 +149,9 @@ sandroTime = 0
 timeFrameMultiplier = 0.0625
 ```
 
-Die "interactive_diarization" Funktion haben wir so erweitert, dass uns auf der x-Achse die aktuelle Sekunde angezeigt wo die Animation gerade steht in der Diarization des Audiofiles. Da die Animation auf unserer Hardware teilweise verzögert läuft hilft uns dies bei der Analyse.
-Ausserdem wird die matplotlib definition so angepasst, dass neu eine zweite "row" ausgegeben wird.
+Die "interactive_diarization" Funktion haben wir so erweitert, dass uns auf der x-Achse die Sekunden angezeigt werden, damit ersichtlich ist wo die Berechnung gerade steht.
+Da die Animation auf unserer Hardware teilweise verzögert läuft, hilft uns dies bei der Analyse.
+Ausserdem wird die matplotlib Definition so angepasst, dass neu eine zweite "row" ausgegeben wird.
 Original:
 ```Python
 def interactive_diarization(similarity_dict, wav, wav_splits, x_crop=5, show_time=False):
@@ -162,7 +163,7 @@ def interactive_diarization(similarity_dict, wav, wav_splits, x_crop=5, show_tim
     fig, (ax, pie) = plt.subplots(1, 2)
 ```
 
-Danach haben wir noch einen Haupttitel über die beiden neuen Graphen erstellt und den Ttiel der eigentlichen Speaker Diarization noch genauer definiert:
+Danach haben wir noch einen Haupttitel über die beiden neuen Graphen erstellt und den Titel der eigentlichen Speaker Diarization noch genauer definiert:
 ```Python
 fig.suptitle("Diarization by Patrik, Dejan & Robin", fontsize=14, fontweight='bold')
 ax.set_title("Speaker Diarization")
@@ -177,13 +178,13 @@ nums = [sandroTime, karinTime]
 ```
 
 Das Pie chart selber ist hier definiert.
-Mit "pie" wird der neue Subplot eröffnet welcher oben in der "interactive_diarization" Funktion definiert wurde
+Mit "pie" wird der neue Subplot eröffnet, welcher oben in der "interactive_diarization" Funktion definiert wurde.
 "pie.clear()" wird benötigt damit in jedem Frame die Werte des pie chart gelöscht und anschliessend neu geladen werden können.
-Das muss so gemacht werden, da matplotlib von sich aus keine update funktion für das pie chart zur verfügung stellt, wir unser pie chart aber in realtime auffüllen wollen.
-"pie.pie" definiert das eigentlich piechart mit "nums" als die oben definierten Werte, "autopct" damit wir Prozentzahlen erhalten, "shadow" für Schatten und "startangle" für den Startwinkel.
-"pie.set_title" definierten den Titel des charts.
+Das muss so gemacht werden, da matplotlib von sich aus keine update funktion für das pie chart zur Verfügung stellt, wir unser pie chart aber in real time auffüllen wollen.
+"pie.pie" definiert das eigentliche Kuchendiagramm mit "nums" als die oben definierten Werte, "autopct" damit wir Prozentzahlen erhalten, "shadow" für Schatten und "startangle" für den Startwinkel.
+"pie.set_title" definiert den Titel des charts.
 "pie.legend" definiert die Legende an den x und y Koordinaten (0.5, 0.95), "loc" die location, "borderaxespad" den pad zwischen den Achsen und den Border der Legende und mit labels werden die oben definierten labels definiert.
-Die 3 "pie.text" Befehle ertstellen uns die  Textboxen wo die Gesamtzeit der Sprecher aufaddiert wird.
+Die 3 "pie.text" Befehle ertstellen uns die Textboxen, wo die Gesamtzeit der Sprecher aufaddiert und real time angezeigt wird.
 Die erste definiert dabei lediglich den Titel.
 Die anderen beiden sind gleich aufgebaut.
 Zuersten werden alle Frames in denen der definierte Sprecher gesprochen hat mit dem timeFrameMultiplier 0.0625 addiert um Sekunden zu erhalten.
@@ -231,7 +232,7 @@ if name == "Karin Keller-Sutter, Bundesrätin":
 print(name) # print the name of the speaker every update
 ```
 
-Ganz am Ende wird auch für uns nochmals die Variablen geprintet damit wir auch in der Console nachvollziehen können, dass alles richtig funktioniert hat:
+Ganz am Ende wird auch für uns nochmals das Total der gesprochenen Zeit geprintet, damit wir auch in der Konsole nachvollziehen können, dass alles richtig berechnet wurde:
 
 ```Python
     # print total amount of talked seconds each candidate
