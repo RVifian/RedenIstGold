@@ -243,5 +243,8 @@ Ganz am Ende wird auch für uns nochmals das Total der gesprochenen Zeit geprint
     print(sandroTime * timeFrameMultiplier)
 ```
 
-
+## Troubleshooting
+Sollte es Fehler beim Erkennen von Imports oder Definitionen innerhalb des Skripts geben, hilft wie immer IDE Neustarten :-)
+Manchmal erkennt die IDE die Imports der .py Files nicht. Da hilft es kurz sämtliche .py Files im Repo zu öffnen und synchronisieren zu lassen.
+Danach sollten sämtliche Abhängigkeiten aufgelöst worden sein. Und sonst: Neustart ;-)
 
