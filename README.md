@@ -94,7 +94,7 @@ Der Originale Code kann dabei unter https://github.com/resemble-ai/Resemblyzer a
 
 ## Arena_1min.py
 
-In dieser Variable wav_fpath wird das Audiofile angegeben:
+In dieser Variable `wav_fpath` wird das Audiofile angegeben:
 ```Python
 wav_fpath = Path(
     "audio_data", "Abstimmungs-Arena» zur Konzernverantwortungsinitiative-a1a54687-eae7-4579-9735-07a1a4227899_1min.wav")
@@ -130,21 +130,21 @@ speaker_wavs = [wav[int(s[0] * sampling_rate):int(s[1] * sampling_ra
 
 ## demo_utils_1min.py
 
-Abgesehen von cm brauchen wir auch colors von matplotlib.
+Abgesehen von `cm` brauchen wir auch `colors` von matplotlib.
 ```Python
 from matplotlib import cm, colors
 ```
 
 
-Ausserdem benötigen wir auch die datetime library.
+Ausserdem benötigen wir auch die `datetime` library.
 ```Python
 import datetime
 ```
 
 Dann brauchen wir noch einige zusätzliche Variablen.
-"karintime" und "sandrotime" wird benötigt um die Sprechdauer hochzuzählen.
+`karintime` und `sandrotime` wird benötigt um die Sprechdauer hochzuzählen.
 Die Speaker Diarization läuft mit 16 Frames, also alle 0.0625 wird ein Frame erzeugt. 
-Die Variable "timeFrameMultiplier" benötigen wir, um später von der Anzahl Frames auf Sekunden zu gelangen.
+Die Variable `timeFrameMultiplier` benötigen wir, um später von der Anzahl Frames auf Sekunden zu gelangen.
 ```Python
 # speakers
 karinTime = 0
@@ -154,7 +154,7 @@ sandroTime = 0
 timeFrameMultiplier = 0.0625
 ```
 
-Die "interactive_diarization" Funktion haben wir so erweitert, dass uns auf der x-Achse die Sekunden angezeigt werden, damit ersichtlich ist wo die Berechnung gerade steht.
+Die `interactive_diarization` Funktion haben wir so erweitert, dass uns auf der x-Achse die Sekunden angezeigt werden, damit ersichtlich ist wo die Berechnung gerade steht.
 Da die Animation auf unserer Hardware teilweise verzögert läuft, hilft uns dies bei der Analyse.
 Ausserdem wird die matplotlib Definition so angepasst, dass neu eine zweite "row" ausgegeben wird.
 Original:
@@ -174,7 +174,7 @@ fig.suptitle("Diarization by Patrik, Dejan & Robin", fontsize=14, fontweight='bo
 ax.set_title("Speaker Diarization")
 ```
 
-In der Unterfunktion "update" haben wir die zu Anfangs erstellten Variablen mittels "global" für uns verfügbar gemacht und die Labels und Werte für das Pie chart definiert.
+In der Unterfunktion `update` haben wir die zu Anfangs erstellten Variablen mittels "global" für uns verfügbar gemacht und die Labels und Werte für das Pie chart definiert.
 ```Python
 global sandroTime
 global karinTime
@@ -183,19 +183,19 @@ nums = [sandroTime, karinTime]
 ```
 
 Das Pie chart selber ist hier definiert.
-Mit "pie" wird der neue Subplot eröffnet, welcher oben in der "interactive_diarization" Funktion definiert wurde.
-"pie.clear()" wird benötigt damit in jedem Frame die Werte des pie chart gelöscht und anschliessend neu geladen werden können.
-Das muss so gemacht werden, da matplotlib von sich aus keine update funktion für das pie chart zur Verfügung stellt, wir unser pie chart aber in real time auffüllen wollen.
-"pie.pie" definiert das eigentliche Kuchendiagramm mit "nums" als die oben definierten Werte, "autopct" damit wir Prozentzahlen erhalten, "shadow" für Schatten und "startangle" für den Startwinkel.
-"pie.set_title" definiert den Titel des charts.
-"pie.legend" definiert die Legende an den x und y Koordinaten (0.5, 0.95), "loc" die location, "borderaxespad" den pad zwischen den Achsen und den Border der Legende und mit labels werden die oben definierten labels definiert.
-Die 3 "pie.text" Befehle ertstellen uns die Textboxen, wo die Gesamtzeit der Sprecher aufaddiert und real time angezeigt wird.
-Die erste definiert dabei lediglich den Titel.
-Die anderen beiden sind gleich aufgebaut.
-Zuersten werden alle Frames in denen der definierte Sprecher gesprochen hat mit dem timeFrameMultiplier 0.0625 addiert um Sekunden zu erhalten.
-Diese werden als Sekunden der datetime.timedelta übergeben welche den Wert nach der Zeitdarstellung 00:00:00.000000 formatiert.
-Mit "[:-4]" werden die letzen 4 Stellen der Milisekunden abgeschnitten damit wir auf eine Dartstellung von 00:00:00.00 kommen welche für uns vollkommen ausreicht und ansprechender aussieht.
-Das ganze wird hübsch verpackt in einer roten Textbox im Beispiel von "Sandro Botz: 00:00:00.00 Sekunden" ausgegeben.
+* Mit `pie` wird der neue Subplot eröffnet, welcher oben in der `interactive_diarization` Funktion definiert wurde.
+* `pie.clear()` wird benötigt damit in jedem Frame die Werte des pie chart gelöscht und anschliessend neu geladen werden können.
+* Das muss so gemacht werden, da matplotlib von sich aus keine update Funktion für das pie chart zur Verfügung stellt, wir unser pie chart aber in real time auffüllen wollen.
+* `pie.pie` definiert das eigentliche Kuchendiagramm mit `nums` als die oben definierten Werte, `autopct` damit wir Prozentzahlen erhalten, `shadow` für Schatten und `startangle` für den Startwinkel.
+* `pie.set_title` definiert den Titel des charts.
+* `pie.legend` definiert die Legende an den x und y Koordinaten (0.5, 0.95), `loc` die location, `borderaxespad` den pad zwischen den Achsen und den Border der Legende und mit `labels` werden die oben definierten labels definiert.
+* Die 3 `pie.text` Befehle ertstellen uns die Textboxen, wo die Gesamtzeit der Sprecher aufaddiert und real time angezeigt wird.
+* Die erste definiert dabei lediglich den Titel.
+* Die anderen beiden sind gleich aufgebaut.
+* Zuersten werden alle Frames in denen der definierte Sprecher gesprochen hat mit dem `timeFrameMultiplier` 0.0625 addiert um Sekunden zu erhalten.
+* Diese werden als Sekunden der `datetime.timedelta` übergeben welche den Wert nach der Zeitdarstellung 00:00:00.000000 formatiert.
+* Mit `[:-4]` werden die letzen 4 Stellen der Milisekunden abgeschnitten damit wir auf eine Dartstellung von 00:00:00.00 kommen welche für uns vollkommen ausreicht und ansprechender aussieht.
+* Das ganze wird hübsch verpackt in einer roten Textbox im Beispiel von "Sandro Botz: 00:00:00.00 Sekunden" ausgegeben.
 
 ```Python
 pie
@@ -211,7 +211,7 @@ pie.text(-1, -1.7, 'Karin Keller-Sutter: ' + str(datetime.timedelta(seconds=(kar
 ```
 
 
-Damit die beiden Variablen sandroTime und karinTime auf die korrekte Anzahl Frames kommen in denen sie gesprochen haben, haben wir die beiden bestehenden if-Anweisungen erweitert.
+Damit die beiden Variablen `sandroTime` und `karinTime` auf die korrekte Anzahl Frames kommen in denen sie gesprochen haben, haben wir die beiden bestehenden if-Anweisungen erweitert.
 Bestehende if Schleifen:
 ```Python
 if similarity > 0.75:
@@ -225,7 +225,7 @@ elif similarity > 0.65:
     color = _default_colors[best]
 ```
 Wenn der Algorithmus eine similarität von mehr als 75 % oder bei einer definierten Unsicherheit von immer noch über 65% hat, wird auch unser Codeteil ausgeführt 
-Wenn die "name" im aktuellen Frame "Sandro Botz, Moderator" enthält, wird die Variable "sandroTime" um eins erhöht und bei "Karin Keller-Sutter, Bundesrätin" "karinTime" entsprechend um 1. Die print Befehle sind lediglich für uns um den Prozess besser kontrollieren zu können.
+Wenn die `name` Variable im aktuellen Frame "Sandro Botz, Moderator" enthält, wird die Variable `sandroTime` um eins erhöht und bei "Karin Keller-Sutter, Bundesrätin" `karinTime` entsprechend um 1. Die print Befehle sind lediglich für uns um den Prozess besser kontrollieren zu können.
 
 ```Python
 if name == "Sandro Botz, Moderator":
