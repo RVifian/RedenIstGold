@@ -22,7 +22,6 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/in
 Poswershell: 
 ```Powershell 
 choco install ffmpeg 
-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) 
 ```
 
 In cmd: 
