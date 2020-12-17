@@ -75,7 +75,7 @@ Error bei voller länge:
 RuntimeError: [enforce fail at ..\c10\core\CPUAllocator.cpp:73] data. DefaultCPUAllocator: not enough memory: you tried to allocate 45909278720 bytes. Buy new RAM! 
 ```
 
-Die Audiodatei haben wir mit Hilfe von https://mp3cut.net/ gekürzt auf 15 und auf 1 min gekürzt.
+Die Audiodatei haben wir mit Hilfe von https://mp3cut.net/ auf 15 und auf 1 min gekürzt.
 
 Die 15 min Version kann nicht direkt auf Github gespeichert werden aber kann von hier heruntergeladen werden: https://zhaw-my.sharepoint.com/:u:/g/personal/vifiarob_students_zhaw_ch/ERTnmpq_daZCqeFg9BhK5KcB8BAnm4q5osEHQwZu-2jLng?e=9e0wze
 
