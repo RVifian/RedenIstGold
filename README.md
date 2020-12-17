@@ -73,7 +73,7 @@ Die Audiodatei haben wir mit Hilfe von https://mp3cut.net/ gekürzt.
  
 
  **15min Version**
-Kann nicht direkt auf Github gespeichert werden:
+Kann nicht direkt auf Github gespeichert aber von hier heruntergeladen werden: https://zhaw-my.sharepoint.com/:u:/g/personal/vifiarob_students_zhaw_ch/ERTnmpq_daZCqeFg9BhK5KcB8BAnm4q5osEHQwZu-2jLng?e=9e0wze
 
 ```Python
 segments = [[113, 140], [34, 50], [190, 230], [873, 910], [764, 800], [672, 720]] 
