@@ -113,7 +113,7 @@ speaker_wavs = [
 
 ## Arena_15min.py
 
-Hier parellel zu oben, nur mit der 15 minütigen AudioSource und mehreren Sprechern.
+Hier parallel zu oben, nur mit der 15 minütigen AudioSource und mehreren Sprechern.
 
 ```Python
 wav_fpath = Path(
@@ -142,7 +142,7 @@ import datetime
 ```
 
 Dann brauchen wir noch einige zusätzliche Variablen.
-`karintime` und `sandrotime` wird benötigt um die Sprechdauer hochzuzählen.
+`karintime` und `sandrotime` wird benötigt, um die Sprechdauer hochzuzählen.
 Die Speaker Diarization läuft mit 16 Frames, also alle 0.0625 wird ein Frame erzeugt. 
 Die Variable `timeFrameMultiplier` benötigen wir, um später von der Anzahl Frames auf Sekunden zu gelangen.
 ```Python
@@ -192,7 +192,7 @@ Das Pie chart selber ist hier definiert.
 * Die 3 `pie.text` Befehle ertstellen uns die Textboxen, wo die Gesamtzeit der Sprecher aufaddiert und real time angezeigt wird.
 * Die erste definiert dabei lediglich den Titel.
 * Die anderen beiden sind gleich aufgebaut.
-* Zuersten werden alle Frames in denen der definierte Sprecher gesprochen hat mit dem `timeFrameMultiplier` 0.0625 addiert um Sekunden zu erhalten.
+* Zuersten werden alle Frames, in denen der definierte Sprecher gesprochen hat mit dem `timeFrameMultiplier` 0.0625 addiert um Sekunden zu erhalten.
 * Diese werden als Sekunden der `datetime.timedelta` übergeben welche den Wert nach der Zeitdarstellung 00:00:00.000000 formatiert.
 * Mit `[:-4]` werden die letzen 4 Stellen der Milisekunden abgeschnitten damit wir auf eine Dartstellung von 00:00:00.00 kommen welche für uns vollkommen ausreicht und ansprechender aussieht.
 * Das ganze wird hübsch verpackt in einer roten Textbox im Beispiel von "Sandro Botz: 00:00:00.00 Sekunden" ausgegeben.
@@ -224,7 +224,7 @@ elif similarity > 0.65:
     message = "Speaker: %s (uncertain)" % name
     color = _default_colors[best]
 ```
-Wenn der Algorithmus eine similarität von mehr als 75 % oder bei einer definierten Unsicherheit von immer noch über 65% hat, wird auch unser Codeteil ausgeführt 
+Wenn der Algorithmus eine Similarität von mehr als 75 % oder bei einer definierten Unsicherheit von immer noch über 65% hat, wird auch unser Codeteil ausgeführt. 
 Wenn die `name` Variable im aktuellen Frame "Sandro Botz, Moderator" enthält, wird die Variable `sandroTime` um eins erhöht und bei "Karin Keller-Sutter, Bundesrätin" `karinTime` entsprechend um 1. Die print Befehle sind lediglich für uns um den Prozess besser kontrollieren zu können.
 
 ```Python
