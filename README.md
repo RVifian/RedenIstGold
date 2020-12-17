@@ -101,9 +101,9 @@ wav_fpath = Path(
 wav = preprocess_wav(wav_fpath)
 ```
 
-Danach werden die Segmente der Speaker definiert  die der Algorithmus zum trainieren des RNN benötigt.
+Danach werden die Segmente der Speaker definiert, die der Algorithmus zum Trainieren des RNN benötigt.
 Ausserdem werden hier auch die Labels der Speaker definiert.
-Die Segmente bilden dabei die Abschnitte in Sekunden innerhalb der Audiodatei, wo die entsprechende Person bestenfalls alleine am sprechen ist.
+Die Segmente bilden dabei die Abschnitte in Sekunden innerhalb der Audiodatei, wo die entsprechende Person bestenfalls alleine am Sprechen ist.
 ```Python
 segments = [[00, 11], [14, 30]]
 speaker_names = ["Sandro Botz, Moderator", "Karin Keller-Sutter, Bundesrätin"]
