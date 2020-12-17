@@ -48,8 +48,10 @@ Installation von Python 3.8 (3.9 ist noch nicht für alle dependecies unterstüt
 
 Clonen unseres Resemblyzer Repositories: 
 
-Visual Studio Code: git clone https://github.com/NosGigu/RedenIstGold
-
+Visual Studio Code: 
+```
+git clone https://github.com/NosGigu/RedenIstGold
+```
  
 
 **Installieren einiger weiterer Python Packages:** 
