@@ -42,7 +42,7 @@ Als Vorgabe wird Visual Studio 2019 mit vollständiger C++ Umgebung benötigt: h
 ![alt text](plots/C++_Dependency.PNG?raw=true)
  
 
-Als Haupt IDE haben wurde jedoch Visual Studio Code verwendet: https://code.visualstudio.com/docs/?dv=win  
+Als Haupt IDE wurde jedoch Visual Studio Code verwendet: https://code.visualstudio.com/docs/?dv=win  
 
 Installation von Python 3.8 (3.9 ist noch nicht für alle dependecies unterstützt): https://www.python.org/downloads/release/python-386/  
 
