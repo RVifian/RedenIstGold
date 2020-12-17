@@ -19,7 +19,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) 
 ```
 
-Poswershell: 
+Powershell: 
 ```Powershell 
 choco install ffmpeg 
 ```
