@@ -142,9 +142,9 @@ import datetime
 ```
 
 Dann brauchen wir noch einige zusätzliche Variablen.
-Karintime und sandrotime wird benötigt um die Sprechdauer hochzuzählen.
+"karintime" und "sandrotime" wird benötigt um die Sprechdauer hochzuzählen.
 Die Speaker Diarization läuft mit 16 Frames, also alle 0.0625 wird ein Frame erzeugt. 
-Die Variable timeFrameMultiplier benötigen wir, um später von der Anzahl Frames auf Sekunden zu gelangen.
+Die Variable "timeFrameMultiplier" benötigen wir, um später von der Anzahl Frames auf Sekunden zu gelangen.
 ```Python
 # speakers
 karinTime = 0
